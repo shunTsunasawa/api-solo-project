@@ -10,18 +10,7 @@ const setupExpressServer = () => {
     res.status(418).send("I am not a server. I'm tea pot.").end();
   });
 
-  app.get('/createtest', async (req, res) => {
-    const people = new People();
-    people.clear();
-    people.name = 'Qiita';
-    people.height = 180;
-    people.mass = 50;
-    people.homeworld = "Earth";
-    await people.save();
-    const respeople = await People.find();
-    res.send(respeople);
-  });
-
+  
   // getリクエストのパラメータを拾うには:を使う
   app.get("/:a/plus/:b", (req, res) => {
     res.send({ result: Number(req.params.a) + Number(req.params.b) });
