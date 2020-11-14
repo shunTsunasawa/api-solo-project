@@ -31,9 +31,22 @@ let app = async () => {
     res.json(list);
   });
 
-  app.patch("/api/people/", async (req, res) => {
-    const allPeople = await People.find();
-    res.json(allPeople);
+  app.patch("/api/people/update/:name", async (req, res) => {
+    const targetName = req.params.name;
+    const update = req.body;
+    const target = await People.findOne({name: targetName});
+    if (target && update.height && update.mass && update.homeworld && update.films) {
+      target.name = targetName;
+      target.height = update.height;
+      target.mass = update.mass;
+      target.homeworld = update.homeworld;
+      target.films = update.films;
+      await target.save();
+      res.send(target);
+    } else {
+      res.status(460).send("Invalid input");
+    }
+
   });
 
   
@@ -47,6 +60,7 @@ let app = async () => {
       people.height = people_i.height;
       people.mass = people_i.mass;
       people.homeworld = people_i.homeworld;
+      people.films = people_i.films;
       //同一IDを更新しないように0を指定
       people.id = 0;
       await people.save();
@@ -57,11 +71,15 @@ let app = async () => {
     res.status(201).send(allPeople);
   });
   
-  app.post("/api/people", async (req, res) => {
+  app.post("/api/people/create", async (req, res) => {
     const newpeople = req.body;
     const people = new People;
+    const targetName = await People.findOne({name: newpeople.name});
+
     if (!newpeople.name || !newpeople.height || !newpeople.mass) {
-      res.status(460).send("Invalid Data");
+      res.status(460).send("Invalid Input");
+    } else if (targetName) {
+      res.status(460).send("That name already exists");
     } else {
       people.name = newpeople.name;
       people.height = newpeople.height;
@@ -72,11 +90,17 @@ let app = async () => {
     }
   });
 
+  app.post("/api/people/delete/:name", async (req, res) => {
+    const targetName = req.params.name;
+    const target = await People.findOne({name: targetName});
+    if (!target) {
+      res.status(460).send("Invalid Input");
+    } else {
+      await People.delete({id : target.id });
+      res.status(201).json(target);
+    }
 
+  });
 
-
-  
 };
-
 app();
-

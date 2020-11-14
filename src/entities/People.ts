@@ -25,6 +25,9 @@ export class People extends BaseEntity {
   })
   public homeworld: string;
 
+  @Column({ type: 'simple-array', nullable: true})
+  public films: string[];
+
 }
 
 export default People;
