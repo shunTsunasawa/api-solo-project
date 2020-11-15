@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>STAR WARS API</title>
+    <link rel="stylesheet" href="gators.css" />
+    <script src="gators.js"></script>
+  </head>
+  <body>
+    <h1>STAR WARS API</h1>
+    <h2>STAR WARSのキャラクターに関するAPIです
+    <table border="1">
+      <tr>
+        <th>メソッド</th>
+        <th>エンドポイント</th>
+        <th>説明</th>
+      </tr>
+      <tr>
+        <th>GET</th>
+        <th>/api/people</th>
+        <th>全キャラクターの全情報を取得</th>
+      </tr>
+      <tr>
+        <th>GET</th>
+        <th>/api/people/name</th>
+        <th>全キャラクターの名前を取得</th>
+      </tr>
+      <tr>
+        <th>POST</th>
+        <th>/api/people</th>
+        <th>bodyに記載されたキャラクターを登録</th>
+      </tr>
+      <tr>
+        <th>PATCH</th>
+        <th>/api/people/update/＜name＞</th>
+        <th>＜name＞で指定したキャラクターをbodyに記載された内容で更新</th>
+      </tr>
+      <tr>
+        <th>DELETE</th>
+        <th>/api/people/delete/＜name＞</th>
+        <th>＜name＞で指定したキャラクターを削除</th>
+      </tr>
+      <tr>
+        <th>POST</th>
+        <th>/api/people/initdb</th>
+        <th>DBを初期化
+        </th>
+      </tr>
+
+
+
+  </body>
+</html>

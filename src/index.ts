@@ -2,7 +2,7 @@
 import { getConnectionOptions, createConnection, BaseEntity,ConnectionOptions } from 'typeorm'
 import { People } from './entities/People'
 import dbConfig from "./ormconfig";
-
+const express = require("express");
 
 
 let app = async () => {
@@ -31,13 +31,13 @@ let app = async () => {
     res.json(list);
   });
 
-  app.patch("/api/people/", async (req, res) => {
+  app.patch("/api/people/update", async (req, res) => {
     const allPeople = await People.find();
     res.json(allPeople);
   });
 
   
-  app.post('/api/initdb', async (req, res) => {
+  app.post('/api/people/initdb', async (req, res) => {
     await People.clear();
     const people = new People;
     
@@ -57,7 +57,7 @@ let app = async () => {
     res.status(201).send(allPeople);
   });
   
-  app.post("/api/people", async (req, res) => {
+  app.post("/api/people/create", async (req, res) => {
     const newpeople = req.body;
     const people = new People;
     if (!newpeople.name || !newpeople.height || !newpeople.mass) {
@@ -71,6 +71,7 @@ let app = async () => {
       res.status(201).json(people);
     }
   });
+
 
 
 
